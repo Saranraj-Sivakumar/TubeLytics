@@ -1,0 +1,14 @@
+@(json: com.fasterxml.jackson.databind.JsonNode)
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>@json.findPath("snippet").findPath("title").asText()</title>
+    </head>
+    <body>
+        <h1>@json.findPath("snippet").findPath("title").asText()</h1>
+        <p><strong>Description:</strong> @json.findPath("snippet").findPath("description").asText()</p>
+        <p><strong>Subscribers:</strong> @json.findPath("statistics").findPath("subscriberCount").asText()</p>
+        <p><strong>Views:</strong> @json.findPath("statistics").findPath("viewCount").asText()</p>
+        <p><strong>Video Count:</strong> @json.findPath("statistics").findPath("videoCount").asText()</p>
+    </body>
+</html>
