@@ -1,15 +1,27 @@
-@(json: com.fasterxml.jackson.databind.JsonNode)
+@(channelProfile: com.fasterxml.jackson.databind.JsonNode, videos: java.util.List[com.fasterxml.jackson.databind.JsonNode])
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
-        <title>@json.findPath("snippet").findPath("title").asText()</title>
+        <title>@channelProfile.findPath("snippet").findPath("title").asText() - Channel Profile</title>
     </head>
     <body>
-        <h1>@json.findPath("snippet").findPath("title").asText()</h1>
-        <p><strong>Description:</strong> @json.findPath("snippet").findPath("description").asText()</p>
-        <p><strong>Subscribers:</strong> @json.findPath("statistics").findPath("subscriberCount").asText()</p>
-        <p><strong>Views:</strong> @json.findPath("statistics").findPath("viewCount").asText()</p>
-        <p><strong>Video Count:</strong> @json.findPath("statistics").findPath("videoCount").asText()</p>
+        <h1>@channelProfile.findPath("snippet").findPath("title").asText()</h1>
+        <p><strong>Description:</strong> @channelProfile.findPath("snippet").findPath("description").asText()</p>
+        <p><strong>Subscribers:</strong> @channelProfile.findPath("statistics").findPath("subscriberCount").asText()</p>
+        <p><strong>Total Views:</strong> @channelProfile.findPath("statistics").findPath("viewCount").asText()</p>
+
+        <h2>Latest Videos</h2>
+        <ul>
+        @for(video <- videos) {
+            <li>
+                <strong>Title:</strong> <a href="https://www.youtube.com/watch?v=@video.findPath("resourceId").findPath("videoId").asText()" target="_blank">@video.findPath("title").asText()</a>
+                <br>
+                <strong>Published At:</strong> @video.findPath("publishedAt").asText()
+                <br>
+                <strong>Description:</strong> @video.findPath("description").asText()
+            </li>
+        }
+        </ul>
     </body>
 </html>
-    <!-- for channel profile  -->

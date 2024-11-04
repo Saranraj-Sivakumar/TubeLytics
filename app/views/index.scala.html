@@ -1,5 +1,26 @@
-@()
+@(searchTerm: String, videos: java.util.List[com.fasterxml.jackson.databind.JsonNode], avgGradeLevel: Double, avgReadingEase: Double, sentiment: String)
 
-@main("Welcome to Play") {
-  <h1>Welcome to Play!</h1>
-}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>YT Lytics - Home</title>
+        <style>
+                body { font-family: Arial, sans-serif; max-width: 800px; margin: auto; }
+                h1 { color: #333; }
+                .link { margin-top: 20px; }
+        </style>
+    </head>
+    <body>
+        <h1>Welcome to YT Lytics</h1>
+
+        <p>This is the home page for YT Lytics. You can view channel profiles by their ID.</p>
+
+        <div class="link">
+                <!-- Example link to view the Marvel channel profile; replace 'UCvC4D8onUfXzvjTOM-dBfEA' with other channel IDs if needed -->
+            <p><strong>Example:</strong> <a href="@routes.ChannelProfileController.showChannelProfile("UCvC4D8onUfXzvjTOM-dBfEA")">
+                View Marvel Channel Profile
+            </a></p>
+        </div>
+    </body>
+</html>
