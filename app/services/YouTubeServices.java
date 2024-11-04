@@ -20,7 +20,7 @@ public class YouTubeServices {
         this.ws = ws;
     }
 
-    // Fetch video descriptions from the YouTube API
+    // Fetch video descriptions from the YouTube API - get api
     public CompletionStage<List<String>> getVideoDescriptions(String searchQuery) {
         String apiUrl = ytApiUrl + "/search";
 

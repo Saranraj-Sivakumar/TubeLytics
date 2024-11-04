@@ -10,7 +10,7 @@ public class ChannelProfileController extends Controller {
 
     private final YouTubeServices youtubeServices;
 
-    // Use @Inject to enable dependency injection for YouTubeServices
+    // Use @Inject to enable dependency injection for YouTubeServices -using inject
     @Inject
     public ChannelProfileController(YouTubeServices youtubeServices) {
         this.youtubeServices = youtubeServices;
