@@ -21,7 +21,12 @@ public class YouTubeServices {
         this.ws = ws;
     }
 
-    // Fetch channel profile information from the YouTube API
+    /**
+     * Retrieves the profile information of a YouTube channel by ID.
+     ** @author Saranraj Sivakumar (ID:40306771)
+     * @param channelId The channel ID.
+     * @return CompletionStage containing JsonNode with channel information.
+     */
     public CompletionStage<JsonNode> getChannelProfile(String channelId) {
         String apiUrl = ytApiUrl + "/channels";
 
@@ -33,7 +38,7 @@ public class YouTubeServices {
                 .thenApply(WSResponse::asJson);  // Return the JSON response as a JsonNode
     }
 
-    // Fetch the last 10 videos of the channel from the YouTube API
+
     public CompletionStage<List<JsonNode>> getChannelVideos(String channelId) {
         String apiUrl = ytApiUrl + "/search";
 

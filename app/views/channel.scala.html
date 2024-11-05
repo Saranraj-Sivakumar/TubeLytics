@@ -3,23 +3,43 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>@channelProfile.findPath("snippet").findPath("title").asText() - Channel Profile</title>
+        <title>@channelProfile.findPath("snippet").findPath("title").asText()</title>
+        <style>
+                body { font-family: Arial, sans-serif; max-width: 800px; margin: auto; }
+                h1 { color: #333; }
+                .video-list { list-style: none; padding: 0; }
+                .video-item { margin-bottom: 20px; display: flex; align-items: center; }
+                .video-thumbnail { margin-right: 15px; }
+                .video-thumbnail img { width: 120px; height: 90px; }
+        </style>
     </head>
     <body>
         <h1>@channelProfile.findPath("snippet").findPath("title").asText()</h1>
         <p><strong>Description:</strong> @channelProfile.findPath("snippet").findPath("description").asText()</p>
         <p><strong>Subscribers:</strong> @channelProfile.findPath("statistics").findPath("subscriberCount").asText()</p>
+        <p><strong>Channel Creation Date:</strong> @channelProfile.findPath("snippet").findPath("publishedAt").asText()</p>
+        <p><strong>Total Videos:</strong> @channelProfile.findPath("statistics").findPath("videoCount").asText()</p>
         <p><strong>Total Views:</strong> @channelProfile.findPath("statistics").findPath("viewCount").asText()</p>
 
         <h2>Latest Videos</h2>
-        <ul>
-        @for(video <- videos) {
-            <li>
-                <strong>Title:</strong> <a href="https://www.youtube.com/watch?v=@video.findPath("resourceId").findPath("videoId").asText()" target="_blank">@video.findPath("title").asText()</a>
-                <br>
-                <strong>Published At:</strong> @video.findPath("publishedAt").asText()
-                <br>
-                <strong>Description:</strong> @video.findPath("description").asText()
+        <ul class="video-list">
+        @for((video, index) <- videos.zipWithIndex) {
+            <li class="video-item">
+                @{
+                    val videoId = if (video.findPath("id").has("videoId")) {
+                        video.findPath("id").findPath("videoId").asText()
+                    } else {
+                        video.findPath("resourceId").findPath("videoId").asText()
+                    }
+                }
+            <div class="video-thumbnail">
+                <img src="@video.findPath("thumbnails").findPath("default").findPath("url").asText()" alt="Thumbnail">
+            </div>
+            <div class="video-details">
+                <p><strong>@(index + 1). Title:</strong> @video.findPath("title").asText()</p>
+                <p><strong>Published At:</strong> @video.findPath("publishedAt").asText()</p>
+                <p><strong>Description:</strong> @video.findPath("description").asText()</p>
+            </div>
             </li>
         }
         </ul>
