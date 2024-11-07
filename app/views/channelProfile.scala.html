@@ -1,0 +1,35 @@
+@(channelInfo: Map[String, String], videos: List[Map[String, String]])
+
+@main(channelInfo("title")) {
+    <div class="channel-profile">
+            <!-- Channel Title -->
+        <h1>@channelInfo("title")</h1>
+
+            <!-- Channel Description -->
+        <p>@channelInfo("description")</p>
+
+            <!-- Channel Thumbnail -->
+        <img src="@channelInfo("thumbnailUrl")" alt="Channel Thumbnail" class="channel-thumbnail">
+
+            <!-- Last 10 Videos Section -->
+        <h2>Last 10 Videos</h2>
+        <ul class="video-list">
+        @for(video <- videos) {
+            <li class="video-item">
+                    <!-- Video Thumbnail -->
+                <img src="@video("thumbnailUrl")" alt="@video("title")" class="video-thumbnail">
+
+                    <!-- Video Title with Link to YouTube -->
+                <h3>
+                    <a href="https://www.youtube.com/watch?v=@video("videoId")" target="_blank">
+                    @video("title")
+                    </a>
+                </h3>
+
+                    <!-- Video Description -->
+                <p>@video("description")</p>
+            </li>
+        }
+        </ul>
+    </div>
+}
